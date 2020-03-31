@@ -1,26 +1,42 @@
-const express = require('express');
-const renderToString = require('preact-render-to-string');
-const { html } = require('htm/preact');
-const App = require('./src/index');
 
+import path from 'path';
+import fs from 'fs';
+
+import express from 'express';
+import renderToString from 'preact-render-to-string';
+//const { html } from'htm/preact');
+import App from './src/index';
+import { h } from 'preact';
 const app = express();
+const router = express.Router();
 const port = process.env.PORT || 8080;
-app.get('/', (request, response) => {
-	const content = renderToString(html`<${App} url=${request.url} />`);
-	response.send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>React SSR Example</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-      </head>
-      <body>
-        <div id="app">${content}</div>
-      </body>
-    </html>
-  `);
-});
 
+
+const serverRenderer = (req, res, next) => {
+	fs.readFile(path.resolve('./build/index.html'), 'utf8', (err, data) => {
+		if (err) {
+			console.error(err);
+			return res.status(500).send('An error occurred');
+		}
+		const content = renderToString(<App />);
+		return res.send(
+			data.replace(
+				'<div id="root"></div>',
+				`<div id="root">${content}</div>`
+			)
+		);
+	});
+};
+
+router.use('^/$', serverRenderer);
+
+router.use(
+	express.static(path.resolve(__dirname, '..', 'build'), {
+		maxAge: '30d'
+	})
+);
+
+app.use(router);
 
 app.listen(port, () => {
 	console.log(`Preact running in ${port}`);

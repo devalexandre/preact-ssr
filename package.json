@@ -3,8 +3,9 @@
   "name": "ssr-preact",
   "version": "0.0.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
+    "start": "yarn  run build && yarn run babel-node server.js",
     "build": "preact build",
     "serve": "preact build && sirv build --cors --single",
     "dev": "preact watch",
@@ -17,18 +18,22 @@
     "build/*"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-react-jsx": "^7.9.4",
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-preset-preact": "^2.0.0",
     "eslint": "^6.0.1",
     "eslint-config-synacor": "^3.0.4",
+    "express": "^4.17.1",
     "if-env": "^1.0.0",
+    "ignore-styles": "^5.0.1",
     "preact-cli": "^3.0.0-rc.6",
     "sirv-cli": "^0.4.5"
   },
   "dependencies": {
-    "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "htm": "^3.0.3",
-    "html": "^1.0.0",
-    "ignore-styles": "^5.0.1",
     "preact": "^10.1.0",
     "preact-render-to-string": "^5.1.4"
   }
