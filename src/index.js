@@ -1,6 +1,3 @@
-import 'preact/debug';
-import 'preact/devtools';
-
 import { h } from 'preact';
 
 import './style.css';

@@ -31,7 +31,7 @@ const serverRenderer = (req, res, next) => {
 router.use('^/$', serverRenderer);
 
 router.use(
-	express.static(path.resolve(__dirname, '..', 'build'), {
+	express.static(path.resolve(__dirname, './build'), {
 		maxAge: '30d'
 	})
 );

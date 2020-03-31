@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "yarn  run build && yarn run babel-node server.js",
-    "build": "preact build",
+    "build": "preact build --template src/template.html",
     "serve": "preact build && sirv build --cors --single",
     "dev": "preact watch",
     "lint": "eslint src"
