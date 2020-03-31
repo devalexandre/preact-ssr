@@ -1,18 +1,17 @@
 {
-  "private": true,
-  "name": "ssr-preact",
-  "version": "0.0.0",
+  "name": "{{ name }}",
+  "version": "0.0.1",
   "license": "MIT",
-  "type": "module",
   "scripts": {
-    "start": "yarn  run build && yarn run babel-node server.js",
+    "start": "if-env NODE_ENV=production &&  npm  run build && npm run copy_manifest && npm run babel-node server.js || npm run -s dev",
     "build": "preact build --template src/template.html",
     "serve": "preact build && sirv build --cors --single",
     "dev": "preact watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "copy_manifest": "cp manifest.json build/manifest.json && cp -R assets build/"
   },
   "eslintConfig": {
-    "extends": "eslint-config-synacor"
+    "extends": "preact"
   },
   "eslintIgnore": [
     "build/*"
@@ -26,7 +25,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-preset-preact": "^2.0.0",
     "eslint": "^6.0.1",
-    "eslint-config-synacor": "^3.0.4",
+    "eslint-config-preact": "^1.1.0",
     "express": "^4.17.1",
     "if-env": "^1.0.0",
     "ignore-styles": "^5.0.1",
