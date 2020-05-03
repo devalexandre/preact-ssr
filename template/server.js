@@ -18,11 +18,11 @@ const serverRenderer = (req, res, next) => {
 			console.error(err);
 			return res.status(500).send('An error occurred');
 		}
-		const content = renderToString(hydrate<App />));
+		const content = renderToString(hydrate(<App />));
 		return res.send(
 			data.replace(
-				'<div id="root"></div>',
-				`<div id="root">${content}</div>`
+				'<div id="preact_root"></div>',
+				`<div id="preact_root">${content}</div>`
 			)
 		);
 	});

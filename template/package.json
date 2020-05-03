@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "if-env NODE_ENV=production &&  npm  run build && npm run copy_manifest && npm run babel-node server.js || npm run -s dev",
+    "start": "npm  run build && npm run copy_manifest && npm run babel-node server.js ",
     "build": "preact build --template src/template.html",
     "serve": "preact build && sirv build --cors --single",
     "dev": "preact watch",
