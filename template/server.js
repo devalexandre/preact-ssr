@@ -18,7 +18,7 @@ const serverRenderer = (req, res, next) => {
 			console.error(err);
 			return res.status(500).send('An error occurred');
 		}
-		const content = renderToString(hydrate(<App />));
+		const content = renderToString(<App />);
 		return res.send(
 			data.replace(
 				'<div id="preact_root"></div>',
